@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+const posts = await Astro.glob('../content/blog/*.md');
+---
+<Layout title="Мои тексты">
+  <main class="max-w-3xl mx-auto py-12 px-6">
+    <h1 class="text-4xl font-bold mb-8">Мои публикации</h1>
+    <ul class="space-y-4">
+      {posts.map(post => (
+        <li>
+          <a href={post.url} class="text-xl text-blue-600 hover:underline">{post.frontmatter.title}</a>
+          <p class="text-gray-500 text-sm">{post.frontmatter.date}</p>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>

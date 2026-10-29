@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../../content/blog/*.md');
+  return posts.map(post => ({
+    params: { slug: post.file.split('/').pop().replace('.md', '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const Content = post.Content;
+---
+<Layout title={post.frontmatter.title}>
+  <article class="max-w-3xl mx-auto py-12 px-6 prose prose-lg">
+    <a href="/" class="text-blue-500 no-underline hover:underline mb-8 inline-block">&larr; Назад</a>
+    <h1>{post.frontmatter.title}</h1>
+    <Content />
+  </article>
+</Layout>
